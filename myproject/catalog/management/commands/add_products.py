@@ -1,12 +1,13 @@
 from django.core.management.base import BaseCommand
 from catalog.models import Category, Product
 
+
 class Command(BaseCommand):
     help = 'Add products to the database'
 
     def handle(self, *args, **kwargs):
-        Product.objects.all().delete() # Удаляем существующие записи
-        Category.objects.all().delete() # Удаляем существующие записи
+        Product.objects.all().delete()  # Удаляем существующие записи
+        Category.objects.all().delete()  # Удаляем существующие записи
 
         category, _ = Category.objects.get_or_create(name='Категория 1')
 

@@ -122,6 +122,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 load_dotenv()  # Загружаем переменные окружения из файла .env
 DATABASES = {

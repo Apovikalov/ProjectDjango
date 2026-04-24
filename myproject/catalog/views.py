@@ -1,7 +1,7 @@
 # catalog/views.py
 from django.shortcuts import render
 
-from myproject.catalog.models import Category, Product
+from catalog.models import Category, Product
 
 
 # from django.http import HttpResponse
@@ -17,5 +17,6 @@ def contacts(request):
 
 def products(request):
     product = Product.objects.get(name='Продукт 1')
+    print()
     context = {'product': product}
     return render(request, 'catalog/products.html', context)

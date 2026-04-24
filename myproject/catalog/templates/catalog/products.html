@@ -5,8 +5,12 @@
     <title>Products</title>
 </head>
 <body>
-<h1> Данные о товаре: </h1>
+<h1> Данные о товаре </h1>
 <p>Наименование: {{ product.name }}</p>
 <p>Категория: {{ product.category }}</p>
+<p>Описание: {{ product.description }}</p>
+<p>Цена: {{ product.price }}</p>
+<p>Дата создания: {{ product.created_at }}</p>
+<p>Дата изменения: {{ product.last_changed_at }}</p>
 </body>
 </html>

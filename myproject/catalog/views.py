@@ -8,7 +8,9 @@ from catalog.models import Category, Product
 
 
 def home(request):
-    return render(request, 'catalog/home.html')
+    product = Product.objects.get(name='Продукт 1')
+    context = {'product': product, 'all_products': Product.objects.all()}
+    return render(request, 'catalog/home.html', context)
 
 
 def contacts(request):
@@ -17,6 +19,5 @@ def contacts(request):
 
 def products(request):
     product = Product.objects.get(name='Продукт 1')
-    print()
-    context = {'product': product}
+    context = {'product': product, 'all_products': Product.objects.all()}
     return render(request, 'catalog/products.html', context)

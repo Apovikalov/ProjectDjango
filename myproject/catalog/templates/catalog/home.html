@@ -42,6 +42,33 @@
         </div>
     </div>
 
+    <div class="container">
+        <h2 align="center" class="display-4">Список товаров</h2>
+        <ul>
+            {% for product in all_products %}
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col-8">
+                        <div class="card">
+                          <div class="card-header text-center"> {{product.name}} </div>
+                          <form style="padding: 10px">
+                              <div class="mb-3">
+                                  <h2 align="center">${{product.price}}</h2>
+                              </div>
+                              <div class="mb-3">
+                                  <p align="center">{{product.description|truncatechars:100}}</p>
+                              </div>
+                              <div class="mb-3">
+                                  <button type="submit" class="btn btn-outline-primary w-100">Купить</button>
+                              </div>
+                          </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </ul>
+    </div>
+
     <footer class="pt-4 my-md-5 pt-md-5 border-top">
         <div class="row">
             <div class="col-12 col-md">

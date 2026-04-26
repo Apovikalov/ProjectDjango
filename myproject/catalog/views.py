@@ -1,7 +1,7 @@
 # catalog/views.py
 from django.shortcuts import render
 
-from catalog.models import Category, Product
+from catalog.models import Product
 
 
 # from django.http import HttpResponse

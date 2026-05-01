@@ -12,7 +12,7 @@ class BaseView(TemplateView):
 class HomeView(ListView):
     model = Product
     template_name = 'catalog/home.html'
-    context_object_name = 'product'
+    context_object_name = 'all_products'
 
 
 class ContactsView(TemplateView):

@@ -1,6 +1,6 @@
 # catalog/views.py
 from django.views.generic import DetailView, ListView, TemplateView
-from django.shortcuts import render, get_object_or_404
+# from django.shortcuts import render, get_object_or_404
 
 from catalog.models import Product
 

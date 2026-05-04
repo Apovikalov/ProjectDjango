@@ -11,16 +11,14 @@
     <div class="row text-center">
         <table border = "0" >
         {% for blog_item in object_list %}
-        <div class="col-3">
-            <tr bgcolor="teal"><td colspan="2" height="30">
-                <p align="left">{{ blog_item.head }} создан: ({{ blog_item.created_at }}) <br>
-                    просмотров {{ blog_item.views_number }}
+        <div class="col-3 row-gap-3">
+            <tr bgcolor="cyan"><td colspan="2" height="90">
+                <p align="center"> <b>{{ blog_item.head }}</b> <br>
+                    Описание: {{ blog_item.content }}<br>
+                    Создан: {{ blog_item.created_at }} <br>
+                    Просмотров: {{ blog_item.views_number }}
             </p></td></tr>
-            <tr>
-                <td width="110"><img src = "{{ blog_item.preview }}" width = "100" title = "{{ blog_item.preview }}"></td>
-                <td><p align="left">{{ blog_item.content }}</p></td>
-            </tr>
-            <tr><td colspan="2" height="30">
+            <tr><td colspan="2" height="90">
             <a href="{{ blog_item.id }}" class="btn btn-primary">ПРОСМОТРЕТЬ</a>
             </td></tr>
         </div>

@@ -1,0 +1,17 @@
+{% extends 'blog/base.html'%}
+
+{% block content %}
+<div class="card mb-3">
+  <p align="center"><img src="{{ object.preview }}"  width = "300" title="{{ object.preview }}" ></p>
+  <div class="card-body">
+    <p align="center"><b>{{ object.head }}</b></p>
+    <p align="center">{{ object.created_at }}</p>
+    <p align="center">{{ object.content }}</p>
+    <p align="center"><small class="text-muted"> Количество просмотров: {{object.views_number}}</small></p>
+    <p align="center"><small class="text-muted">{{object.created_at}}</small></p>
+    <p align="center">
+    <a href="{% url 'blog:post_edit' object.id %}" class="btn btn-primary">Редактировать</a>
+    <a href="{% url 'blog:post_delete' object.id %}" class="btn btn-danger">Удалить</a></p>
+  </div>
+</div>
+{% endblock %}

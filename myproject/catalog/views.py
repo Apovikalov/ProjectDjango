@@ -1,8 +1,10 @@
 # catalog/views.py
-from django.views.generic import DetailView, ListView, TemplateView
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, DetailView, ListView, TemplateView
 # from django.shortcuts import render, get_object_or_404
 
 from catalog.models import Product
+from catalog.forms import ProductForm
 
 
 class BaseView(TemplateView):
@@ -23,6 +25,13 @@ class ProductDetailView(DetailView):
     model = Product
     template_name = 'catalog/product_detail.html'
     context_object_name = 'product'
+
+
+class ProductFormView(CreateView):
+    model = Product
+    form_class = ProductForm
+    template_name = 'catalog/product_form.html'
+    success_url = reverse_lazy('home')
 
 
 # def base(request):

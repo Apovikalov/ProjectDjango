@@ -28,3 +28,36 @@ class ProductForm(forms.ModelForm):
         if price < 0:
             raise ValidationError('Цена продукта не может быть отрицательной')
         return price
+
+    def __init__(self, *args, **kwargs):
+        super(ProductForm, self).__init__(*args, **kwargs)
+
+        self.fields['name'].widget.attrs.update({
+            'class': 'form-control',  # Добавление CSS-класса для стилизации поля
+            'placeholder': 'Введите название'  # Текст подсказки внутри поля
+        })
+
+        self.fields['description'].widget.attrs.update({
+            'class': 'form-control',  # Добавление CSS-класса для стилизации поля
+            'placeholder': 'Введите описание'  # Текст подсказки внутри поля
+        })
+
+        self.fields['category'].widget.attrs.update({
+            'class': 'form-control',  # Добавление CSS-класса для стилизации поля
+            'placeholder': 'Выберите категорию'  # Текст подсказки внутри поля
+        })
+
+        self.fields['price'].widget.attrs.update({
+            'class': 'form-control',  # Добавление CSS-класса для стилизации поля
+            'placeholder': 'Введите цену'  # Текст подсказки внутри поля
+        })
+
+        self.fields['created_at'].widget.attrs.update({
+            'class': 'form-control',  # Добавление CSS-класса для стилизации поля
+            'placeholder': 'Дата в формате YYYY-MM-DD'  # Текст подсказки внутри поля
+        })
+
+        self.fields['last_changed_at'].widget.attrs.update({
+            'class': 'form-control',  # Добавление CSS-класса для стилизации поля
+            'placeholder': 'Дата в формате YYYY-MM-DD'  # Текст подсказки внутри поля
+        })

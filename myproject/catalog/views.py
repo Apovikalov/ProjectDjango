@@ -1,6 +1,6 @@
 # catalog/views.py
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, ListView, TemplateView
+from django.views.generic import CreateView, DeleteView, DetailView, ListView, TemplateView, UpdateView
 # from django.shortcuts import render, get_object_or_404
 
 from catalog.models import Product
@@ -31,6 +31,19 @@ class ProductFormView(CreateView):
     model = Product
     form_class = ProductForm
     template_name = 'catalog/product_form.html'
+    success_url = reverse_lazy('home')
+
+
+class ProductUpdateView(UpdateView):
+    model = Product
+    fields = ['name', 'description', 'category', 'price', 'created_at', 'last_changed_at']
+    template_name = "catalog/product_edit.html"
+    success_url = reverse_lazy('home')
+
+
+class ProductDeleteView(DeleteView):
+    model = Product
+    template_name = "catalog/product_delete.html"
     success_url = reverse_lazy('home')
 
 

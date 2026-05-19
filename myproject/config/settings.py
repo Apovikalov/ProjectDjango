@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 import os
+
+from django.conf.global_settings import AUTH_USER_MODEL
 from dotenv import load_dotenv
 from pathlib import Path
 
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'catalog',
     'blog',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -86,6 +89,7 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = 'users.CustomUser'
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators

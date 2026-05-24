@@ -7,7 +7,7 @@ class CustomUserCreationForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = CustomUser
-        fields = ('email', 'username', 'password')
+        fields = ('email', 'username', 'country')
 
     def clean_phone_number(self):
         phone_number = self.cleaned_data.get('phone_number')

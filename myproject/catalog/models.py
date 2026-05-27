@@ -22,6 +22,7 @@ class Product(models.Model):
     price = models.FloatField(verbose_name='Цена за покупку')
     created_at = models.DateField(verbose_name='Дата создания')
     last_changed_at = models.DateField(verbose_name='Дата последнего изменения')
+    publish_status = models.BooleanField(default=False, verbose_name='Статус публикации')
 
     def __str__(self):
         return f'{self.name}'
@@ -30,3 +31,4 @@ class Product(models.Model):
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
         ordering = ['name']
+        permissions = [('can_unpublish_product', 'Can unpublish product')]

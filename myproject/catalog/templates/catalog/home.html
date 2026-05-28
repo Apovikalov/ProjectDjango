@@ -49,7 +49,9 @@
                               <div class="mb-3">
                                   <button type="submit" class="btn btn-outline-primary w-100">Купить</button>
                                   <a href="/catalog/product_edit/{{product.id}}/" class="btn btn-outline-primary w-100">Изменить</a>
-                                  <a href="/catalog/product_delete/{{product.id}}/" class="btn btn-outline-primary w-100">Удалить</a>
+                                  {% if perms.products.delete_product %}
+                                      <a href="/catalog/product_delete/{{product.id}}/" class="btn btn-outline-primary w-100">Удалить</a>
+                                  {% endif %}
                               </div>
                           </form>
                         </div>

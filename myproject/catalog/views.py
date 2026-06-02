@@ -1,9 +1,11 @@
 # catalog/views.py
 from django.http import HttpResponseForbidden
 from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, TemplateView, UpdateView, View
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 
 from catalog.models import Product
 from catalog.forms import ProductForm
@@ -57,6 +59,13 @@ class ProductDeleteView(DeleteView):
     success_url = reverse_lazy('home')
 
 
+@method_decorator(cache_page(60 * 15), name='dispatch')
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'catalog/product_detail.html'
+    context_object_name = 'product'
+
+
 class DeleteProductView(LoginRequiredMixin, View):
     def post(self, request, product_id):
         product = get_object_or_404(Product, id=product_id)
@@ -69,7 +78,7 @@ class DeleteProductView(LoginRequiredMixin, View):
         return redirect('products:product_list')
 
 
-class UnpublishProductView(LoginRequiredMixin, View):
+class UnpublishProductView(LoginRequiredMixin, UserPassesTestMixin, View):
     def post(self, request, product_id):
         product = get_object_or_404(Product, id=product_id)
 
@@ -81,6 +90,10 @@ class UnpublishProductView(LoginRequiredMixin, View):
 
         return redirect('products:product_list')
 
+    def test_func(self):
+        user = self.request.user
+        product = self.get_object()
+        return user == product.owner or user.has_perm('products.can_unpublish_product')
 
 # def base(request):
 #     return render(request, 'catalog/base.html')

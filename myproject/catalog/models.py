@@ -1,6 +1,6 @@
 from django.db import models
 
-from myproject.users.models import CustomUser
+from users.models import CustomUser
 
 
 class Category(models.Model):

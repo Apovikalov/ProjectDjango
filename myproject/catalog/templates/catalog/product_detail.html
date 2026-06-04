@@ -10,4 +10,5 @@
 <p>Цена: {{ product.price }}</p>
 <p>Дата создания: {{ product.created_at }}</p>
 <p>Дата изменения: {{ product.last_changed_at }}</p>
+<a href="{% url 'student_list' %}" class="btn btn-primary">Назад к списку студентов</a>
 {% endblock %}

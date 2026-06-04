@@ -9,6 +9,8 @@ from django.utils.decorators import method_decorator
 
 from catalog.models import Product
 from catalog.forms import ProductForm
+from catalog.services import ProductService
+from unicodedata import category
 
 
 class BaseView(TemplateView):
@@ -30,6 +32,11 @@ class ProductDetailView(DetailView):
     template_name = 'catalog/product_detail.html'
     context_object_name = 'product'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        category_id = self.object.id
+        context['product_list'] = ProductService.get_products_by_category(category_id)
+
 
 class ProductFormView(CreateView):
     model = Product
@@ -38,7 +45,7 @@ class ProductFormView(CreateView):
     success_url = reverse_lazy('home')
 
     def form_valid(self, form):
-        form.instance.user = self.request.user
+        form.instance.owner = self.request.user
         return super().form_valid(form)
 
 

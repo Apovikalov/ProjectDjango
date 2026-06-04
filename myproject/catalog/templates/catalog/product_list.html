@@ -3,11 +3,6 @@
 {% block title %} Список продуктов в категории {% endblock %}
 
 {% block content %}
-<h1> Список продуктов в категории {{category.name}} </h1>
-<ul>
-    {% for product in product_list %}
-        <li>{{product.name}}</li>
-    {% endfor %}
-</ul>
+<h2>{{ product_list }}</h2>
 <a href="{% url 'home' %}" class="btn btn-primary">Назад к списку продуктов</a>
 {% endblock %}

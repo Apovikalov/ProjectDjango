@@ -36,6 +36,7 @@ class ProductDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         category_id = self.object.id
         context['product_list'] = ProductService.get_products_by_category(category_id)
+        return context
 
 
 class ProductFormView(CreateView):

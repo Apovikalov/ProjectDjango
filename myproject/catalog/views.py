@@ -1,6 +1,7 @@
 # catalog/views.py
 from django.http import HttpResponseForbidden
 from django.urls import reverse_lazy
+from django.core.cache import cache
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, TemplateView, UpdateView, View
 from django.shortcuts import render, get_object_or_404, redirect
@@ -22,21 +23,28 @@ class HomeView(ListView):
     template_name = 'catalog/home.html'
     context_object_name = 'all_products'
 
+    def get_queryset(self):
+        queryset = cache.get('all_products_queryset')
+        if not queryset:
+            queryset = super().get_queryset()
+            cache.set('all_products_queryset', queryset, 60 * 15)
+        return queryset
+
 
 class ContactsView(TemplateView):
     template_name = 'catalog/contacts.html'
 
 
-class ProductDetailView(DetailView):
-    model = Product
-    template_name = 'catalog/product_detail.html'
-    context_object_name = 'product'
+# class ProductDetailView(DetailView):
+    #     model = Product
+    # template_name = 'catalog/product_detail.html'
+    # context_object_name = 'product'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        category_id = self.object.id
-        context['product_list'] = ProductService.get_products_by_category(category_id)
-        return context
+    # def get_context_data(self, **kwargs):
+        # context = super().get_context_data(**kwargs)
+        # category_id = self.object.id
+        # context['product_list'] = ProductService.get_products_by_category(category_id)
+        # return context
 
 
 class ProductFormView(CreateView):
@@ -72,6 +80,12 @@ class ProductDetailView(DetailView):
     model = Product
     template_name = 'catalog/product_detail.html'
     context_object_name = 'product'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        category_id = self.object.id
+        context['product_list'] = ProductService.get_products_by_category(category_id)
+        return context
 
 
 class DeleteProductView(LoginRequiredMixin, View):

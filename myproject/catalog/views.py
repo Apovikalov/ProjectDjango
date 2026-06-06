@@ -35,18 +35,6 @@ class ContactsView(TemplateView):
     template_name = 'catalog/contacts.html'
 
 
-# class ProductDetailView(DetailView):
-    #     model = Product
-    # template_name = 'catalog/product_detail.html'
-    # context_object_name = 'product'
-
-    # def get_context_data(self, **kwargs):
-        # context = super().get_context_data(**kwargs)
-        # category_id = self.object.id
-        # context['product_list'] = ProductService.get_products_by_category(category_id)
-        # return context
-
-
 class ProductFormView(CreateView):
     model = Product
     form_class = ProductForm
@@ -92,7 +80,7 @@ class DeleteProductView(LoginRequiredMixin, View):
     def post(self, request, product_id):
         product = get_object_or_404(Product, id=product_id)
 
-        if not request.user.has_perm('products.delete_product'):
+        if not request.user.has_perm('catalog.delete_product'):
             return HttpResponseForbidden('У Вас нет прав на удаление продукта.')
 
         product.delete()
@@ -104,7 +92,7 @@ class UnpublishProductView(LoginRequiredMixin, UserPassesTestMixin, View):
     def post(self, request, product_id):
         product = get_object_or_404(Product, id=product_id)
 
-        if not request.user.has_perm('products.can_unpublish_product'):
+        if not request.user.has_perm('catalog.can_unpublish_product'):
             return HttpResponseForbidden('Вы не можете снять продукт с публикации.')
 
         product.publish_status = False
@@ -115,29 +103,4 @@ class UnpublishProductView(LoginRequiredMixin, UserPassesTestMixin, View):
     def test_func(self):
         user = self.request.user
         product = self.get_object()
-        return user == product.owner or user.has_perm('products.can_unpublish_product')
-
-# def base(request):
-#     return render(request, 'catalog/base.html')
-
-
-# def home(request):
-#     product = Product.objects.get(name='Продукт 1')
-#     context = {'product': product, 'all_products': Product.objects.all()}
-#     return render(request, 'catalog/home.html', context)
-
-
-# def contacts(request):
-#     return render(request, 'catalog/contacts.html')
-
-
-# def product_detail(self, request, pk):
-    #     product = get_object_or_404(Product, pk=pk)
-    #     context = {'product': product}
-    #     return render(request, 'catalog/product_detail.html', context)
-
-
-# def products(self, request):
-    #     product = Product.objects.get(name='Продукт 1')
-    #     context = {'product': product}
-    #     return render(request, 'catalog/product_detail.html', context)
+        return user == product.owner or user.has_perm('catalog.can_unpublish_product')

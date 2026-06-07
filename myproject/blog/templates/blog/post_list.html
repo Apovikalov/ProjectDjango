@@ -1,0 +1,31 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Мой Блог</h1>
+    <p class="lead">Добро пожаловать! Добавьте новый пост, если блог пуст.</p>
+</div>
+<div class="container mt-5">
+    <div class="row">
+    </div>
+    <div class="row text-center">
+        <table border = "0" >
+        {% for blog_item in object_list %}
+        <div class="col-3 row-gap-3">
+            <tr bgcolor="cyan"><td colspan="2" height="90">
+                <p align="center"> <b>{{ blog_item.head }}</b> <br>
+                    Описание: {{ blog_item.content }}<br>
+                    Создан: {{ blog_item.created_at }} <br>
+                    Просмотров: {{ blog_item.views_number }}
+            </p></td></tr>
+            <tr><td colspan="2" height="90">
+            <a href="{{ blog_item.id }}" class="btn btn-primary">ПРОСМОТРЕТЬ</a>
+            </td></tr>
+        </div>
+        {% empty %}
+        <p>Нет блогов. <a href="{% url 'blog:post_create' %}">Создать новый блог</a>.</p>
+        {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}

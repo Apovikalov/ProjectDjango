@@ -52,6 +52,12 @@ class ProductUpdateView(UpdateView):
     template_name = "catalog/product_edit.html"
     success_url = reverse_lazy('home')
 
+    def dispatch(self, request, *args, **kwargs):
+        product = get_object_or_404(Product, pk=kwargs['pk'])
+        if product.owner != request.user and not request.user.groups.filter(name='Модератор продуктов').exists():
+            return HttpResponseForbidden()
+        return super().dispatch(request, *args, **kwargs)
+
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
@@ -61,6 +67,12 @@ class ProductDeleteView(DeleteView):
     model = Product
     template_name = "catalog/product_delete.html"
     success_url = reverse_lazy('home')
+
+    def dispatch(self, request, *args, **kwargs):
+        product = get_object_or_404(Product, pk=kwargs['pk'])
+        if product.owner != request.user and not request.user.groups.filter(name='Модератор продуктов').exists():
+            return HttpResponseForbidden()
+        return super().dispatch(request, *args, **kwargs)
 
 
 @method_decorator(cache_page(60 * 15), name='dispatch')
